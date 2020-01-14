@@ -14,6 +14,10 @@ config :ui, UiWeb.Endpoint,
   render_errors: [view: UiWeb.ErrorView, accepts: ~w(html json)],
   pubsub: [name: Ui.PubSub, adapter: Phoenix.PubSub.PG2]
 
+config :ui, UiWeb.Endpoint,
+  live_view: [
+    signing_salt: "VERY_SO_SECRET"
+  ]
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",

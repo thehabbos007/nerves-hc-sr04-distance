@@ -24,9 +24,10 @@ config :nerves, source_date_epoch: "1577975236"
 config :logger, backends: [RingLogger]
 
 config :ui, UiWeb.Endpoint,
-  url: [host: "localhost"],
+  url: [host: "nerves.local"],
   http: [port: 80],
   secret_key_base: "HEY05EB1dFVSu6KykKHuS4rQPQzSHv4F7mGVB/gnDLrIu75wE/ytBXy2TaL3A6RA",
+  live_view: [signing_salt: "KNgIslY7"],
   root: Path.dirname(__DIR__),
   server: true,
   render_errors: [view: UiWeb.ErrorView, accepts: ~w(html json)],

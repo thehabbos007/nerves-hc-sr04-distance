@@ -28,23 +28,6 @@ long getMicrotime(){
 
 static ERL_NIF_TERM do_sensor_reading(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[])
 {
-
-  // printf("Start: %ld, stop: %ld, difference: %ld, range: %.2f cm\n", startTime, stopTime, difference, rangeCm);
-  /*gpio_export(PIN_TRIGGER);
-  gpio_direction(PIN_TRIGGER, 1);
-
-  for(int i = 0; i < 5; i++) {
-    printf(">> GPIO %d ON\n", PIN_TRIGGER);
-    gpio_write(PIN_TRIGGER, 1);
-
-    sleep(1);
-
-    printf(">> GPIO %d OFF\n", PIN_TRIGGER);
-    gpio_write(PIN_TRIGGER, 0);
-
-    sleep(1);
-  }*/
-
   gpio_export(PIN_TRIGGER);
   gpio_export(PIN_ECHO);
   gpio_direction(PIN_TRIGGER, 1);

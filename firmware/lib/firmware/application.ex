@@ -19,6 +19,7 @@ defmodule Firmware.Application do
     [
       # Starts a worker by calling: Firmware.Worker.start_link(arg)
       # {Firmware.Worker, arg},
+      Firmware.SensorServer
     ]
   end
 
@@ -26,6 +27,7 @@ defmodule Firmware.Application do
     [
       # Starts a worker by calling: Firmware.Worker.start_link(arg)
       # {Firmware.Worker, arg},
+      Firmware.SensorServer
     ]
   end
 end
