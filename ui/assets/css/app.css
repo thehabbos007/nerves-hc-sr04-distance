@@ -3,23 +3,37 @@
 @import "./phoenix.css";
 @import "../../deps/phoenix_live_view/assets/css/live_view.css";
 
-.hide{
-  visibility: hidden;
+.game-info{
+  font-size:20px;
+  margin-left:0.7em;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.points{
+  font-weight: bold;
+  font-size: 30px;
+  transform: skew(-15deg);
+}
+
+.points-header{
+  margin-bottom: 0;
 }
 
 .game-content::before {
   content: "5 cm";
   font-size:20px;
   position: absolute;
-  top: -1.5em;
+  bottom: -1.5em;
   left: 0;
   z-index: 2;
 }
 .game-content::after {
   content: "50 cm";
-  font-size:20px;
+  font-size:16px;
   position: absolute;
-  top: -1.5em;
+  bottom: -1.5em;
   right: 0;
   z-index: 2;
 }
@@ -33,7 +47,6 @@
 .target{
   height:inherit;
   width:0.7rem;
-  margin-left: 90%;
   background-image:linear-gradient(to right, rgba(192, 192, 192, 0.3), rgba(192, 192, 192, 0.1)),
     linear-gradient(to right, black 50%, white 50%),
     linear-gradient(to bottom, black 50%, white 50%);

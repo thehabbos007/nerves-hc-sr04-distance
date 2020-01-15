@@ -1,4 +1,19 @@
-<div class="game-content">
-  <div style="padding-left:<%= @distance_percentage %>%" class="actual"></div>
-  <div class="target"></div>
-</div>
+<%= case @game_state do %>
+<% :not_started -> %>
+  <button phx-click="start_game">start game</button>
+
+<% :started -> %>
+  <div class="game-info">
+    <span>round <%= @round %></span>
+    <span><%= @points %> points</span>
+  </div>
+  <div class="game-content">
+    <div style="padding-left:<%= @distance %>%" class="actual"></div>
+    <div style="margin-left:<%= @target %>%" class="target"></div>
+  </div>
+
+<% :over -> %>
+<h3 class="point-header">Game is now over.</h3>
+<p>You got <span class="points"><%= @points %></span> points!</p>
+<button phx-click="start_game">restart game</button>
+<% end %>
