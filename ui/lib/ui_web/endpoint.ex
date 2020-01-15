@@ -2,7 +2,7 @@ defmodule UiWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :ui
 
   socket "/live", Phoenix.LiveView.Socket
-  
+
   socket "/socket", UiWeb.UserSocket,
     websocket: true,
     longpoll: false
