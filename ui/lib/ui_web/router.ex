@@ -19,6 +19,7 @@ defmodule UiWeb.Router do
 
     get "/", PageController, :index
     live "/distance", DistanceLive
+    live "/game", GameLive
   end
 
   # Other scopes may use custom stacks.
