@@ -27,7 +27,7 @@ defmodule UiWeb.GameLive do
 
     def game_round_assigns(socket) do
       round = socket.assigns[:round]
-      timer = Process.send_after(self(), :round_end, 500)
+      timer = Process.send_after(self(), :round_end, 5_000)
 
       socket = socket
       |> assign(:distance_list, List.duplicate(0, @sma_window))
