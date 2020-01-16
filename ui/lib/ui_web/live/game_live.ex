@@ -5,7 +5,7 @@ defmodule UiWeb.GameLive do
   @topic "distance"
   @min 4
   @max 50
-  @sma_window 5
+  @sma_window 4
 
   def render(assigns) do
     UiWeb.PageView.render("game.html", assigns)
@@ -29,7 +29,7 @@ defmodule UiWeb.GameLive do
 
   def game_round_assigns(socket) do
     round = socket.assigns[:round]
-    timer = Process.send_after(self(), :round_end, 5_000)
+    timer = Process.send_after(self(), :round_end, 3_000)
 
     socket =
       socket
@@ -92,6 +92,6 @@ defmodule UiWeb.GameLive do
         %{assigns: %{points: points, distance: distance, target: target}} = socket
       ) do
     new_points = points + 100 - (target - distance)
-    assign(socket, :points, new_points)
+    assign(socket, :points, round(new_points))
   end
 end

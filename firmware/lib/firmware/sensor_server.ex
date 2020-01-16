@@ -21,6 +21,6 @@ defmodule Firmware.SensorServer do
   # Helpers
 
   defp schedule_reading() do
-    Process.send_after(self(), :pub_reading, 200)
+    Process.send_after(self(), :pub_reading, 70)
   end
 end

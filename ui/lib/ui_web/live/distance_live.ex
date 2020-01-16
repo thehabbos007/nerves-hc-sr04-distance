@@ -8,13 +8,13 @@ defmodule UiWeb.DistanceLive do
   end
 
   def mount(_, socket) do
-    temperature = 22
+    distance = 22
     UiWeb.Endpoint.subscribe(@topic)
-    {:ok, assign(socket, :temperature, temperature)}
+    {:ok, assign(socket, :distance, distance)}
   end
 
   def handle_info({:reading, reading}, socket) do
     IO.puts("HANDLE BROADCAST: #{reading}")
-    {:noreply, assign(socket, :temperature, reading)}
+    {:noreply, assign(socket, :distance, reading)}
   end
 end
