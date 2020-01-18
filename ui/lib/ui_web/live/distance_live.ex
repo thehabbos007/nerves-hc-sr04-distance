@@ -13,8 +13,10 @@ defmodule UiWeb.DistanceLive do
     {:ok, assign(socket, :distance, distance)}
   end
 
-  def handle_info({:reading, reading}, socket) do
-    IO.puts("HANDLE BROADCAST: #{reading}")
+  def handle_info({:reading, reading}, socket) when reading < 200 do
     {:noreply, assign(socket, :distance, reading)}
   end
+
+  def handle_info({:reading, _}, socket), do:  {:noreply, socket}
+
 end

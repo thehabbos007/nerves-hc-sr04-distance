@@ -31,8 +31,7 @@ defmodule UiWeb.GameLive do
     round = socket.assigns[:round]
     timer = Process.send_after(self(), :round_end, 3_000)
 
-    socket =
-      socket
+    socket
       |> assign(:distance_list, List.duplicate(0, @sma_window))
       |> assign(:distance, 0)
       |> assign(:target, :rand.uniform(100))
@@ -45,6 +44,7 @@ defmodule UiWeb.GameLive do
       game_round_assigns(socket)
       |> assign(:game_state, :started)
       |> assign(:round, 0)
+      |> assign(:points, 0)
 
     {:noreply, socket}
   end
@@ -55,8 +55,6 @@ defmodule UiWeb.GameLive do
   end
 
   def handle_info(:round_end, socket) do
-    IO.inspect(socket.assigns)
-
     socket =
       socket
       |> calculate_new_points()
@@ -67,8 +65,7 @@ defmodule UiWeb.GameLive do
 
   def handle_info({:reading, reading}, socket) do
     value = map_to_percentage(reading)
-    percentages = [value | socket.assigns[:distance_list]]
-    IO.inspect(percentages)
+    percentages = if reading < 200 do [value | socket.assigns[:distance_list]] else socket.assigns[:distance_list] end
     {:noreply, set_percentages(socket, percentages)}
   end
 

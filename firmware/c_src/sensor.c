@@ -28,33 +28,18 @@ long getMicrotime(){
 
 static ERL_NIF_TERM do_sensor_reading(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[])
 {
-  gpio_export(PIN_TRIGGER);
-  gpio_export(PIN_ECHO);
-  gpio_direction(PIN_TRIGGER, 1);
-  //gpio_write(PIN_TRIGGER, 0);
-  gpio_direction(PIN_ECHO, 0);
-
-
+  long startTime = 0, stopTime = 0, difference = 0;
+  double rangeCm;
   gpio_write(PIN_TRIGGER, 1);
   usleep(10);
   gpio_write(PIN_TRIGGER, 0);
 
-  int echo, previousEcho, lowHigh, highLow;
-  long startTime = 0, stopTime = 0, difference = 0;
-  double rangeCm;
-  lowHigh = highLow = echo = previousEcho = 0;
-  while(0 == lowHigh || highLow == 0) {
-    previousEcho = echo;
-    echo = gpio_read(PIN_ECHO);
-    if(0 == lowHigh && 0 == previousEcho && 1 == echo) {
-      lowHigh = 1;
-      startTime = getMicrotime();
-    }
-    if(1 == lowHigh && 1 == previousEcho && 0 == echo) {
-      highLow = 1;
-      stopTime = getMicrotime();
-    }
-  }
+  while(gpio_read(PIN_ECHO) == 0);
+
+  startTime = getMicrotime();
+  while(gpio_read(PIN_ECHO) == 1);
+  stopTime = getMicrotime();
+  
   difference = stopTime - startTime;
   rangeCm = difference / 58;
 
@@ -63,9 +48,19 @@ static ERL_NIF_TERM do_sensor_reading(ErlNifEnv* env, int argc, const ERL_NIF_TE
   return enif_make_tuple(env, 2, atom_ok, double_reading);
 }
 
+static ERL_NIF_TERM init_sensor(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[])
+{
+  gpio_export(PIN_TRIGGER);
+  gpio_export(PIN_ECHO);
+  gpio_direction(PIN_TRIGGER, 1);
+  gpio_direction(PIN_ECHO, 0);
+  return enif_make_atom(env, "ok");
+}
+
 static ErlNifFunc nif_funcs[] =
 {
-    {"do_sensor_reading", 0, do_sensor_reading, 0}
+    {"do_sensor_reading", 0, do_sensor_reading, 0},
+    {"init_sensor", 0, init_sensor, 0}
 };
 
 ERL_NIF_INIT(Elixir.Firmware.Sensor, nif_funcs, NULL,NULL,NULL,NULL)

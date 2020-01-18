@@ -7,6 +7,7 @@ defmodule Firmware.SensorServer do
   end
 
   def init(opts) do
+    Sensor.init_sensor()
     schedule_reading()
     {:ok, -1.0}
   end
@@ -21,6 +22,6 @@ defmodule Firmware.SensorServer do
   # Helpers
 
   defp schedule_reading() do
-    Process.send_after(self(), :pub_reading, 70)
+    Process.send_after(self(), :pub_reading, 100)
   end
 end

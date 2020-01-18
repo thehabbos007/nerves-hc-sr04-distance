@@ -5,6 +5,10 @@ defmodule Firmware.Sensor do
     :erlang.nif_error(:nif_not_loaded)
   end
 
+  def init_sensor do
+    :erlang.nif_error(:nif_not_loaded)
+  end
+
   @on_load :load_nif
   def load_nif do
     nif_file = '#{:code.priv_dir(:firmware)}/sensor'
