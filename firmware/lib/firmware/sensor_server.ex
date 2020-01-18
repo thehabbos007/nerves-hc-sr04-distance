@@ -6,7 +6,7 @@ defmodule Firmware.SensorServer do
     GenServer.start_link(__MODULE__, opts, name: __MODULE__)
   end
 
-  def init(opts) do
+  def init(_) do
     Sensor.init_sensor()
     schedule_reading()
     {:ok, -1.0}
@@ -19,9 +19,6 @@ defmodule Firmware.SensorServer do
     {:noreply, state}
   end
 
-  # Helpers
+  defp schedule_reading(), do: Process.send_after(self(), :pub_reading, 100)
 
-  defp schedule_reading() do
-    Process.send_after(self(), :pub_reading, 100)
-  end
 end

@@ -1,13 +1,9 @@
 defmodule Firmware.Sensor do
   require Logger
 
-  def do_sensor_reading do
-    :erlang.nif_error(:nif_not_loaded)
-  end
+  def do_sensor_reading, do: :erlang.nif_error(:nif_not_loaded)
 
-  def init_sensor do
-    :erlang.nif_error(:nif_not_loaded)
-  end
+  def init_sensor, do: :erlang.nif_error(:nif_not_loaded)
 
   @on_load :load_nif
   def load_nif do
