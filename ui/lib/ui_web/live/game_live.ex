@@ -88,7 +88,7 @@ defmodule UiWeb.GameLive do
   def calculate_new_points(
         %{assigns: %{points: points, distance: distance, target: target}} = socket
       ) do
-    new_points = points + 100 - (target - distance)
+    new_points = points + 100 - abs(target - distance)
     assign(socket, :points, round(new_points))
   end
 end
